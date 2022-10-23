@@ -22,7 +22,7 @@ jobs:
         dotnet-version: 6.0.x
         
     - name: Restore workflows
-      run: dotnet workflow restore
+      run: dotnet workload restore
       
     - name: Restore dependencies
       run: dotnet restore

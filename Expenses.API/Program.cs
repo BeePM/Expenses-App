@@ -63,15 +63,18 @@ builder.Services.AddDbContext<ExpensesContext>(dbBuilder =>
         .EnableDetailedErrors();
 });
 
-builder.Services.AddAuthentication(options =>
+if (builder.Configuration.GetValue<bool>("Authentication:IsEnabled"))
 {
-    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-}).AddJwtBearer(options =>
-{
-    options.Authority = builder.Configuration["Authentication:Authority"];
-    options.Audience = builder.Configuration["Authentication:Audience"];
-});
+    builder.Services.AddAuthentication(options =>
+    {
+        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    }).AddJwtBearer(options =>
+    {
+        options.Authority = builder.Configuration["Authentication:Authority"];
+        options.Audience = builder.Configuration["Authentication:Audience"];
+    });
+}
 
 var app = builder.Build();
 
@@ -96,7 +99,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseAuthentication();
+if (builder.Configuration.GetValue<bool>("Authentication:IsEnabled"))
+{
+    app.UseAuthentication();
+}
+
 app.UseAuthorization();
 
 if (builder.Environment.IsDevelopment())

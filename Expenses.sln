@@ -3,19 +3,21 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Expenses.API", "Expenses.API\Expenses.API.csproj", "{7F7E4458-1FD8-49EF-8411-F2CA8722E2C6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Expenses.API", "Expenses.API\Expenses.API.csproj", "{7F7E4458-1FD8-49EF-8411-F2CA8722E2C6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Expenses.Common", "Expenses.Common\Expenses.Common.csproj", "{ABBF380B-9183-4510-BC4A-569DEE1B87E8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Expenses.Common", "Expenses.Common\Expenses.Common.csproj", "{ABBF380B-9183-4510-BC4A-569DEE1B87E8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Expenses.MAUI", "Expenses.MAUI\Expenses.MAUI.csproj", "{4D67A858-5E35-4261-AC10-D0C7A0428271}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Expenses.MAUI", "Expenses.MAUI\Expenses.MAUI.csproj", "{4D67A858-5E35-4261-AC10-D0C7A0428271}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5DBD7A28-7B8B-47C2-B4ED-D5DDCC69BBD0}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{7F7E4458-1FD8-49EF-8411-F2CA8722E2C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -30,5 +32,11 @@ Global
 		{4D67A858-5E35-4261-AC10-D0C7A0428271}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4D67A858-5E35-4261-AC10-D0C7A0428271}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4D67A858-5E35-4261-AC10-D0C7A0428271}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {85A03827-AEEA-4D04-A58A-83C41B9DBA5F}
 	EndGlobalSection
 EndGlobal

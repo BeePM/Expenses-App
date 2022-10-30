@@ -1,6 +1,7 @@
-﻿using Expenses.Common.DTO;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Expenses.Common.DTO;
 using Expenses.Common.Enums;
-using System.ComponentModel.DataAnnotations;
 
 namespace Expenses.Common.Entities
 {
@@ -11,6 +12,8 @@ namespace Expenses.Common.Entities
         public string? Description { get; set; }
         public ExpenseTypeEnum ExpenseType { get; set; }
         public DateTime ExpenseDate { get; set; }
+
+        [Column(TypeName = "decimal(18,4)")]
         public decimal Amount { get; set; }
 
         [Required]

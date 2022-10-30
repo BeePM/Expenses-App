@@ -1,5 +1,5 @@
-﻿using Expenses.Common.DTO;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using Expenses.Common.DTO;
 
 namespace Expenses.Common.Entities
 {

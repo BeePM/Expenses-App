@@ -58,9 +58,18 @@ builder.Services.AddScoped<IUserService>(sp =>
 builder.Services.AddDbContext<ExpensesContext>(dbBuilder =>
 {
     var configuration = builder.Configuration;
-    dbBuilder.UseSqlite(configuration.GetConnectionString("Default"))
-        .EnableSensitiveDataLogging(builder.Environment.IsDevelopment())
-        .EnableDetailedErrors();
+
+    if (builder.Environment.IsDevelopment())
+    {
+        dbBuilder.UseSqlite(configuration.GetConnectionString("Default"))
+            .EnableSensitiveDataLogging()
+            .EnableDetailedErrors();
+    }
+    else
+    {
+        dbBuilder.UseSqlServer(configuration.GetConnectionString("Default"))
+            .EnableDetailedErrors();
+    }
 });
 
 if (builder.Configuration.GetValue<bool>("Authentication:IsEnabled"))

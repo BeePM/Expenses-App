@@ -20,7 +20,7 @@ namespace Expenses.API.Filters
         public void OnActionExecuting(ActionExecutingContext context)
         {
             var userId = _userService.GetUserId();
-            _logger.LogInformation("User {UserId} requesting resource {Resource}",
+            _logger.LogInformation("User {UserId} requesting resource -> {Resource}",
                                    userId,
                                    context.ActionDescriptor.DisplayName ?? context.ActionDescriptor.Id);
         }

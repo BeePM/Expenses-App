@@ -19,7 +19,7 @@ namespace Expenses.API.Services
                 return context.User.Identity.Name;
             }
 
-            return null;
+            return "default";
         }
     }
 }

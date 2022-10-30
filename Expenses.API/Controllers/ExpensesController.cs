@@ -1,11 +1,10 @@
+using System.ComponentModel.DataAnnotations;
 using Expenses.API.Extensions;
 using Expenses.API.Interfaces;
 using Expenses.API.Models;
 using Expenses.API.Queries;
 using Expenses.Common.DTO;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.ComponentModel.DataAnnotations;
 
 namespace Expenses.API.Controllers;
 
@@ -14,7 +13,7 @@ namespace Expenses.API.Controllers;
 /// </summary>
 [ApiController]
 [Route("api/[controller]")]
-[Authorize]
+//[Authorize]
 [Produces("application/json")]
 public class ExpensesController : ControllerBase
 {

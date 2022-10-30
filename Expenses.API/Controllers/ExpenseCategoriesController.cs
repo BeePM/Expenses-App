@@ -1,7 +1,6 @@
 ﻿using Expenses.API.Extensions;
 using Expenses.API.Interfaces;
 using Expenses.Common.DTO;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Expenses.API.Controllers;
@@ -11,7 +10,7 @@ namespace Expenses.API.Controllers;
 /// </summary>
 [ApiController]
 [Route("api/categories")]
-[Authorize]
+//[Authorize]
 [Produces("application/json")]
 public class ExpenseCategoriesController : ControllerBase
 {

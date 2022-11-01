@@ -56,7 +56,12 @@ namespace Expenses.API.Services
             var dbQuery = _context.Expenses.AsQueryable()
                 .AsNoTracking()
                 .Include(x => x.Category)
-                .Where(x => x.UserId == CurrentUserId && x.ExpenseDate >= query.StartDateTime);
+                .Where(x => x.UserId == CurrentUserId);
+
+            if (query.StartDate.HasValue)
+            {
+                dbQuery = dbQuery.Where(x => x.ExpenseDate >= query.StartDateTime);
+            }
 
             if (query.EndDate.HasValue)
             {
@@ -68,7 +73,10 @@ namespace Expenses.API.Services
                 dbQuery = dbQuery.Where(x => EF.Functions.Like(x.Category!.Name!, query.Category));
             }
 
-            return await dbQuery.ToListAsync(ct);
+            return await dbQuery
+                .Skip(query.Offset)
+                .Take(query.Limit)
+                .ToListAsync(ct);
         }
 
         public async Task<Expense> GetExpenseAsync(int expenseId, CancellationToken ct = default)

@@ -76,6 +76,7 @@ namespace Expenses.API.Services
             return await dbQuery
                 .Skip(query.Offset)
                 .Take(query.Limit)
+                .OrderByDescending(x => x.ExpenseDate)
                 .ToListAsync(ct);
         }
 

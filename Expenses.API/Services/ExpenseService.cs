@@ -10,10 +10,10 @@ namespace Expenses.API.Services
 {
     public partial class ExpenseService : IExpenseService
     {
-        private readonly ExpensesContext _context;
+        private readonly IExpensesContext _context;
         private readonly IUserService _userService;
 
-        public ExpenseService(ExpensesContext context, IUserService userService)
+        public ExpenseService(IExpensesContext context, IUserService userService)
         {
             _context = context;
             _userService = userService;

@@ -23,8 +23,6 @@ builder.Services.AddControllers(options =>
     options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
     options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
     options.JsonSerializerOptions.WriteIndented = true;
-    options.JsonSerializerOptions.IgnoreReadOnlyFields = true;
-    options.JsonSerializerOptions.IgnoreReadOnlyProperties = true;
     options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
     options.UseDateOnlyTimeOnlyStringConverters();
 });
@@ -55,21 +53,20 @@ builder.Services.AddScoped<IUserService>(sp =>
     return new UserService(contextAccessor);
 });
 
-builder.Services.AddDbContext<ExpensesContext>(dbBuilder =>
+var configuration = builder.Configuration;
+builder.Services.AddDbContext<IExpensesContext, ExpensesContext>(dbBuilder =>
 {
-    var configuration = builder.Configuration;
-
-    if (builder.Environment.IsDevelopment())
+    if (builder.Environment.IsProduction())
     {
-        dbBuilder.UseSqlite(configuration.GetConnectionString("Default"))
-            .EnableSensitiveDataLogging()
-            .EnableDetailedErrors();
+        dbBuilder.UseSqlServer(configuration.GetConnectionString("Default"));
     }
     else
     {
-        dbBuilder.UseSqlServer(configuration.GetConnectionString("Default"))
-            .EnableDetailedErrors();
+        dbBuilder.UseInMemoryDatabase("localdb", mo => mo.EnableNullChecks());
     }
+
+    dbBuilder.EnableSensitiveDataLogging(builder.Environment.IsDevelopment())
+        .EnableDetailedErrors();
 });
 
 if (builder.Configuration.GetValue<bool>("Authentication:IsEnabled"))
@@ -86,18 +83,6 @@ if (builder.Configuration.GetValue<bool>("Authentication:IsEnabled"))
 }
 
 var app = builder.Build();
-
-try
-{
-    using var scope = app.Services.CreateScope();
-    var context = scope.ServiceProvider.GetRequiredService<ExpensesContext>();
-    context.Database.Migrate();
-}
-catch (Exception e)
-{
-    var logger = app.Services.GetRequiredService<ILogger<ExpensesContext>>();
-    logger.LogError(e, "Exception occurred while migrating database: {Error}", e.Message);
-}
 
 app.UseMiddleware<ErrorHandlingMiddleware>();
 

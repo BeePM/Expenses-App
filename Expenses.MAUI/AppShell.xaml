@@ -3,12 +3,23 @@
     x:Class="Expenses.MAUI.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:essentials="clr-namespace:Microsoft.Maui.ApplicationModel;assembly=Microsoft.Maui.Essentials"
+    xmlns:fi="clr-namespace:Expenses.MAUI.FontIcons"
     xmlns:local="clr-namespace:Expenses.MAUI"
+    xmlns:views="clr-namespace:Expenses.MAUI.Views"
     Shell.FlyoutBehavior="Disabled">
 
-    <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+    <TabBar>
+        <Tab Title="Dashboard" Icon="{FontImage FontFamily=FaSolid, Glyph={x:Static fi:FaSolid.Home}}">
+            <ShellContent ContentTemplate="{DataTemplate views:DashboardView}"/>
+        </Tab>
 
+        <Tab Title="Add New Expense" Icon="{FontImage FontFamily=FaSolid, Glyph={x:Static fi:FaSolid.Plus}}">
+            <ShellContent ContentTemplate="{DataTemplate views:DashboardView}"/>
+        </Tab>
+
+        <Tab Title="Analytics" Icon="{FontImage FontFamily=FaSolid, Glyph={x:Static fi:FaSolid.ChartBar}}">
+            <ShellContent ContentTemplate="{DataTemplate views:DashboardView}"/>
+        </Tab>
+    </TabBar>
 </Shell>

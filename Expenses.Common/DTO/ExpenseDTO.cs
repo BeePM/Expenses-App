@@ -19,7 +19,7 @@ namespace Expenses.Common.DTO
             Category = category;
         }
 
-        public int ExpenseId { get; set; }
+        public int ExpenseId { get; }
         public string? Description { get; }
         public ExpenseTypeEnum ExpenseType { get; }
         public DateTime ExpenseDate { get; }

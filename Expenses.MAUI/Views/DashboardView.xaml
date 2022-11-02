@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<local:ViewBase
+    x:Class="Expenses.MAUI.Views.DashboardView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:expenses="clr-namespace:Expenses.Common.DTO;assembly=Expenses.Common"
+    xmlns:essentials="clr-namespace:Microsoft.Maui.ApplicationModel;assembly=Microsoft.Maui.Essentials"
+    xmlns:fi="clr-namespace:Expenses.MAUI.FontIcons"
+    xmlns:local="clr-namespace:Expenses.MAUI.Views"
+    xmlns:skiaExtCtrls="clr-namespace:SkiaSharp.Extended.UI.Controls;assembly=SkiaSharp.Extended.UI"
+    Title="Home"
+    x:DataType="local:DashboardViewModel"
+    Shell.NavBarIsVisible="False">
+
+    <ContentPage.Background>
+        <LinearGradientBrush>
+            <GradientStop Offset="0.1" Color="{StaticResource Primary}" />
+            <GradientStop Offset="1.0" Color="{StaticResource PrimaryAlt}" />
+        </LinearGradientBrush>
+    </ContentPage.Background>
+
+    <local:ViewBase.PageContent>
+        <RefreshView IsRefreshing="{Binding IsRefreshing}"
+                     Command="{Binding RefreshExpensesCommand}">
+            <ScrollView>
+                <VerticalStackLayout Padding="10" Spacing="10">
+                    <Label Margin="0,10,0,0"
+                           Style="{StaticResource LabelH1}"
+                           Text="Dashboard"
+                           TextColor="{StaticResource PrimaryInverse}" />
+
+                    <skiaExtCtrls:SKLottieView HeightRequest="200"
+                                               RepeatCount="-1"
+                                               Source="dashboard.json" />
+
+                    <Label Margin="0,20,0,0"
+                           Style="{StaticResource LabelH2}"
+                           Text="Recent expenses"
+                           TextColor="{StaticResource PrimaryInverse}" />
+
+                    <VerticalStackLayout BindableLayout.ItemsSource="{Binding RecentExpenses}">
+                        <ActivityIndicator IsVisible="{Binding IsBusy}"
+                                       IsRunning="{Binding IsBusy}"
+                                       HorizontalOptions="CenterAndExpand"
+                                       VerticalOptions="CenterAndExpand"
+                                       Color="{StaticResource Accent}"/>
+
+                        <BindableLayout.EmptyView>
+                            <Label
+                                FontAttributes="Italic"
+                                Opacity="0.5"
+                                Text="No recent expenses"
+                                TextColor="{StaticResource cText}"
+                                IsVisible="{Binding IsNotBusy}"/>
+                        </BindableLayout.EmptyView>
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate x:DataType="expenses:ExpenseDTO">
+                                <Frame
+                                    Margin="0,5"
+                                    Padding="10"
+                                    BorderColor="Transparent"
+                                    HasShadow="False">
+
+                                    <Frame.Background>
+                                        <LinearGradientBrush>
+                                            <GradientStop Offset="0.1" Color="{StaticResource Primary}" />
+                                            <GradientStop Offset="1.0" Color="{StaticResource PrimaryLight}" />
+                                        </LinearGradientBrush>
+                                    </Frame.Background>
+
+                                    <Frame.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding BindingContext.GoToExpenseCommand, Source={RelativeSource AncestorType={x:Type local:DashboardView}}}" CommandParameter="{Binding .}" />
+                                    </Frame.GestureRecognizers>
+
+                                    <Grid ColumnDefinitions="auto,*,auto" ColumnSpacing="10">
+                                        <Image
+                                            Grid.Column="0"
+                                            Aspect="AspectFill"
+                                            HeightRequest="60"
+                                            Source="dotnet_bot.svg"
+                                            WidthRequest="60">
+                                            <Image.Clip>
+                                                <RoundRectangleGeometry CornerRadius="5" Rect="0,0,60,60" />
+                                            </Image.Clip>
+                                        </Image>
+                                        <VerticalStackLayout Grid.Column="1">
+                                            <Label
+                                                Opacity="0.7"
+                                                Text="{Binding ExpenseType}"
+                                                TextColor="{StaticResource PrimaryInverse}" />
+                                            <Label
+                                                FontAttributes="Bold"
+                                                Text="{Binding Amount}"
+                                                TextColor="{StaticResource PrimaryInverse}" />
+                                            <Label
+                                                FontAttributes="Italic"
+                                                Opacity="0.7"
+                                                Text="{Binding Category}"
+                                                TextColor="{StaticResource PrimaryInverse}" />
+                                        </VerticalStackLayout>
+
+                                        <Image
+                                            Grid.Column="2"
+                                            Margin="0,0,10,0"
+                                            Opacity="0.5"
+                                            VerticalOptions="Center">
+                                            <Image.Source>
+                                                <FontImageSource
+                                                    FontFamily="FaSolid"
+                                                    Glyph="{x:Static fi:FaSolid.ArrowRight}"
+                                                    Size="Default"
+                                                    Color="{StaticResource PrimaryInverse}" />
+                                            </Image.Source>
+                                        </Image>
+                                    </Grid>
+                                </Frame>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </VerticalStackLayout>
+
+                    <Button
+                        Command="{Binding GoToRecentExpensesCommand}"
+                        Style="{StaticResource ButtonPrimary}"
+                        Text="SEE ALL EXPENSES"
+                        IsVisible="{Binding IsNotBusy}"/>
+                </VerticalStackLayout>
+            </ScrollView>
+        </RefreshView>
+    </local:ViewBase.PageContent>
+</local:ViewBase>

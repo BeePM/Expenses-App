@@ -1,6 +1,6 @@
-﻿using Expenses.Common.Entities;
+﻿using System.ComponentModel.DataAnnotations;
+using Expenses.Common.Entities;
 using Expenses.Common.Enums;
-using System.ComponentModel.DataAnnotations;
 
 namespace Expenses.API.Models
 {

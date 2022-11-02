@@ -9,7 +9,7 @@ namespace Expenses.API.Queries
         public string? Category { get; set; }
 
         [JsonIgnore]
-        internal bool IsValid => (EndDate == null && StartDate == null) || (StartDate != null && EndDate != null && EndDate >= StartDate);
+        internal bool IsValid => EndDate == null && StartDate == null || EndDate >= StartDate;
 
         [JsonIgnore]
         internal DateTime? StartDateTime => StartDate?.ToDateTime(TimeOnly.Parse("00:00:00"));
